@@ -17,7 +17,6 @@ export const ListItem = styled.div`
     line-height: 40px;
     font-size: 20px;
     font-weight: bold;
-    border-bottom: 1px solid #eee;
   }
 
   a {

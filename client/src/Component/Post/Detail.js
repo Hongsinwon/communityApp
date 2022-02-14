@@ -1,31 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Avatar from "react-avatar";
+import moment from "moment";
+import "moment/locale/ko";
 import axios from "axios";
-import { PostDiv, Post, PostBtnDiv } from "../../style/DetailCSS";
-import { Spinner } from "react-bootstrap";
 
-const Detail = () => {
-  const [postInfo, setPostInfo] = useState({});
-  const [flag, setFlag] = useState(false);
+import { PostDiv, Post, PostBtnDiv } from "../../style/DetailCSS";
+
+const Detail = ({ postInfo, flag }) => {
   let params = useParams();
   let navigate = useNavigate();
 
-  useEffect(() => {
-    let body = {
-      postNum: params.postNum,
-    };
-    axios
-      .post("/api/post/detail", body)
-      .then((response) => {
-        if (response.data.success) {
-          setPostInfo(response.data.post);
-          setFlag(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const user = useSelector((state) => state.user);
 
   const DeleteHandler = () => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
@@ -46,15 +33,34 @@ const Detail = () => {
     }
   };
 
+  const setTime = (a, b) => {
+    if (a !== b) {
+      return moment(b).format(`YYYY년 MMMM Do , a hh:mm`) + `(수정됨)`;
+    } else {
+      return moment(a).format(`YYYY년 MMMM Do , a hh:mm`);
+    }
+  };
+
+  console.log(postInfo.author.photoURL);
   return (
     <PostDiv>
-      {flag ? (
-        <>
-          <Post>
-            <h1>{postInfo.title}</h1>
-            {postInfo.image ? <img src={postInfo.image} alt="" /> : null}
-            <p>{postInfo.content}</p>
-          </Post>
+      <>
+        <Post>
+          <h1>{postInfo.title}</h1>
+          <p>
+            <Avatar
+              size="40"
+              round={true}
+              src={postInfo.author.photoURL}
+              style={{ border: `1px solid #eee` }}
+            />
+            {postInfo.author.displayName}
+          </p>
+          <p>{setTime(postInfo.createdAt, postInfo.updatedAt)}</p>
+          {postInfo.image ? <img src={postInfo.image} alt="" /> : null}
+          <p>{postInfo.content}</p>
+        </Post>
+        {user.uid === postInfo.author.uid && (
           <PostBtnDiv>
             <Link to={`/edit/${postInfo.postNum}`}>
               <button className="edit">수정</button>
@@ -63,12 +69,8 @@ const Detail = () => {
               삭제
             </button>
           </PostBtnDiv>
-        </>
-      ) : (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      )}
+        )}
+      </>
     </PostDiv>
   );
 };

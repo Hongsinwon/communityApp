@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import { UploadDiv, UploadButtonDiv, UploadForm } from "../../style/UploadCSS";
 
 const Edit = () => {
   const [postInfo, setPostInfo] = useState({}); //title, content, postNum 정보
-  const [flag, setFlag] = useState(false); // Loding 창
+
   const [title, setTitle] = useState(""); // title input
   const [content, setContent] = useState(""); // content inpur
   let navigate = useNavigate(); // 이동
@@ -21,7 +22,6 @@ const Edit = () => {
       .then((response) => {
         if (response.data.success) {
           setPostInfo(response.data.post);
-          setFlag(true);
         }
       })
       .catch((err) => {
@@ -31,7 +31,6 @@ const Edit = () => {
 
   // 수정정보 title, content에 삽입
   useEffect(() => {
-    console.log(postInfo);
     setTitle(postInfo.title);
     setContent(postInfo.content);
   }, [postInfo]);
