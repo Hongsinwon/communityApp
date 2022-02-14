@@ -10,6 +10,7 @@ export const UploadForm = styled.form`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
   #title {
     margin-bottom: 10px;
     padding: 10px;

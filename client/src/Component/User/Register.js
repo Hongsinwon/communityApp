@@ -15,6 +15,7 @@ const Register = () => {
 
   const [nameCheck, setNameCheck] = useState(false); // 중복체크
   const [nameInfo, setNameInfo] = useState("");
+  const [loginInfo, setLoginInfo] = useState("");
   const user = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -22,19 +23,23 @@ const Register = () => {
   const registerFunc = async (e) => {
     e.preventDefault();
     setFlag(true);
-    //return setFlag(false);
-    if (!(name && Email && PW && pwConfig)) {
-      return alert("모든 값을 채워주세요.");
-    }
-    if (PW.length <= 6 && pwConfig.length <= 6) {
-      return alert("비밀번호는 6자 이상 입력해야합니다.");
-    }
-    if (PW !== pwConfig) {
-      return alert("비밀번호와 비밀번호 입력이 다릅니다.");
+
+    if (!Email) {
+      setFlag(false);
+      return setLoginInfo("※ 이메일을 입력해주세요");
     }
 
-    if (!nameCheck) {
-      return alert("닉네임 중복검사를 진행해주세요.");
+    if (PW.length <= 6 && pwConfig.length <= 6) {
+      setFlag(false);
+      return setLoginInfo("※ 비밀번호는 6자 이상 입력해야합니다.");
+    }
+    if (PW !== pwConfig) {
+      setFlag(false);
+      return setLoginInfo("※ 비밀번호와 비밀번호 확인이 다릅니다.");
+    }
+    if (!nameCheck && Email && PW && pwConfig) {
+      setFlag(false);
+      return setLoginInfo("※ 닉네임 중복검사를 진행해주세요.");
     }
 
     // firebase 로그인정보
@@ -81,9 +86,9 @@ const Register = () => {
       if (response.data.success) {
         if (response.data.check) {
           setNameCheck(true);
-          setNameInfo("사용가능한 닉네임입니다.");
+          setNameInfo("※ 사용가능한 닉네임입니다.");
         } else {
-          setNameInfo("사용 불가능한 닉네임입니다.");
+          setNameInfo("※ 사용 불가능한 닉네임입니다.");
         }
       }
     });
@@ -98,7 +103,16 @@ const Register = () => {
   return (
     <LoginDiv>
       <form>
-        <label>닉네임</label>
+        <label>
+          닉네임
+          {!nameCheck && Email && PW && pwConfig ? (
+            <span className="impossible">{loginInfo}</span>
+          ) : (
+            <span className={nameCheck ? "possibility" : "impossible"}>
+              {nameInfo}
+            </span>
+          )}
+        </label>
         <input
           type="name"
           value={name}
@@ -106,16 +120,27 @@ const Register = () => {
           placeholder="닉네임을 입력해주세요"
           disabled={nameCheck}
         />
-        {nameInfo}
-        <button onClick={nameCheckfunc}>닉네임 중복검사</button>
-        <label>이메일</label>
+        {!nameCheck && (
+          <button className="nickName" onClick={nameCheckfunc}>
+            닉네임 중복검사
+          </button>
+        )}
+        <label>
+          이메일
+          {Email === "" && <span className="impossible">{loginInfo}</span>}
+        </label>
         <input
           type="email"
           value={Email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="이메일을 입력해주세요"
         />
-        <label>비밀번호</label>
+        <label>
+          비밀번호
+          {PW.length <= 6 && pwConfig.length <= 6 && (
+            <span className="impossible">{loginInfo}</span>
+          )}
+        </label>
         <input
           type="password"
           minLength={8}
@@ -123,7 +148,10 @@ const Register = () => {
           onChange={(e) => setPW(e.target.value)}
           placeholder="비밀번호를 입력해주세요"
         />
-        <label>비밀번호 확인</label>
+        <label>
+          비밀번호 확인
+          {PW !== pwConfig && <span className="impossible">{loginInfo}</span>}
+        </label>
         <input
           type="password"
           minLength={8}
@@ -131,7 +159,7 @@ const Register = () => {
           onChange={(e) => setPwConfig(e.target.value)}
           placeholder="다시 비밀번호를 입력해주세요."
         />
-        <button disabled={flag} onClick={registerFunc}>
+        <button className="loginBtn" disabled={flag} onClick={registerFunc}>
           회원가입
         </button>
       </form>
