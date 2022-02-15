@@ -35,38 +35,55 @@ const Detail = ({ postInfo, flag }) => {
 
   const setTime = (a, b) => {
     if (a !== b) {
-      return moment(b).format(`YYYY년 MMMM Do , a hh:mm`) + `(수정됨)`;
+      return moment(b).format(`YYYY년 MMMM Do  a hh:mm`) + ` (수정)`;
     } else {
       return moment(a).format(`YYYY년 MMMM Do , a hh:mm`);
     }
   };
 
-  console.log(postInfo.author.photoURL);
   return (
     <PostDiv>
       <>
         <Post>
-          <h1>{postInfo.title}</h1>
-          <p>
+          <h1 className="title">{postInfo.title}</h1>
+          <div className="userContent">
             <Avatar
-              size="40"
+              size="36"
               round={true}
               src={postInfo.author.photoURL}
               style={{ border: `1px solid #eee` }}
             />
-            {postInfo.author.displayName}
-          </p>
-          <p>{setTime(postInfo.createdAt, postInfo.updatedAt)}</p>
-          {postInfo.image ? <img src={postInfo.image} alt="" /> : null}
-          <p>{postInfo.content}</p>
+            <div className="userIfnfo">
+              <p className="displayName">
+                {postInfo.author.displayName}
+                {user.uid === postInfo.author.uid && (
+                  <span className="writer">작성자</span>
+                )}
+              </p>
+              <p className="postTime">
+                {setTime(postInfo.createdAt, postInfo.updatedAt)}
+              </p>
+            </div>
+          </div>
+          {postInfo.image ? (
+            <div className="postImage">
+              <img src={postInfo.image} alt="" />
+            </div>
+          ) : null}
+          <p className="postContent">{postInfo.content}</p>
         </Post>
         {user.uid === postInfo.author.uid && (
           <PostBtnDiv>
-            <Link to={`/edit/${postInfo.postNum}`}>
-              <button className="edit">수정</button>
-            </Link>
-            <button className="delete" onClick={DeleteHandler}>
-              삭제
+            <div>
+              <Link to={`/edit/${postInfo.postNum}`}>
+                <button className="edit">수정</button>
+              </Link>
+              <button className="delete" onClick={DeleteHandler}>
+                삭제
+              </button>
+            </div>
+            <button className="list" onClick={() => navigate("/")}>
+              목록
             </button>
           </PostBtnDiv>
         )}

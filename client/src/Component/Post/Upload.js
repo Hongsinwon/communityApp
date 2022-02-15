@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Avatar from "react-avatar";
 import { ImageUpload } from ".";
 import axios from "axios";
 
@@ -52,7 +53,7 @@ const Upload = () => {
     <>
       <UploadDiv>
         <UploadForm>
-          <label htmlFor="title">제목</label>
+          <label htmlFor="title">새 글 작성</label>
           <input
             id="title"
             type="text"
@@ -60,14 +61,24 @@ const Upload = () => {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="제목을 입력해주세요"
           />
+
           <ImageUpload setImage={setImage} />
-          <label htmlFor="content">내용</label>
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="내용을 입력해주세요"
           />
+
+          {image && (
+            <div className="imgUploadCut">
+              <Avatar
+                size="300"
+                src={image}
+                style={{ border: `1px solid #eee`, cursor: "pointer" }}
+              />
+            </div>
+          )}
           <UploadButtonDiv>
             <button onClick={onSubmit}>업로드</button>
           </UploadButtonDiv>

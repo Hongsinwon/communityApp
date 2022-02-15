@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const UploadDiv = styled.div`
   width: 100%;
   margin: 10px 0;
+  margin-top: 70px;
 `;
 
 export const UploadForm = styled.form`
@@ -11,25 +12,43 @@ export const UploadForm = styled.form`
   display: flex;
   flex-direction: column;
 
+  label {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
   #title {
-    margin-bottom: 10px;
+    margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #c6c6c6;
+
     &:active,
     &:focus {
       outline: none;
+      border: 1px solid #10ce72;
     }
   }
+
+  .imgUploadCut {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+  }
+
   textarea {
-    min-height: 350px;
+    margin: 10px 0;
+    min-height: 360px;
     resize: none;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #c6c6c6;
+
     &:active,
     &:focus {
       outline: none;
+      border: 1px solid #10ce72;
     }
     &::-webkit-scrollbar {
       width: 10px;
@@ -46,36 +65,38 @@ export const UploadForm = styled.form`
       box-shadow: inset 0 0 5px whitesmoke;
     }
   }
-  label {
-    font-weight: bold;
-    margin: 10px 0;
-  }
 `;
 
 export const UploadButtonDiv = styled.div`
   margin-top: 10px;
   display: flex;
-  justify-content: flex-end;
+
   button {
+    width: 100%;
     border-radius: 5px;
-    padding: 10px;
-    background-color: #222;
+    height: 50px;
+    line-height: 50px;
+    background-color: #10ad62;
+    border: 1px solid #10ad62;
     color: #fff;
-    border: 1px solid #222;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.5s;
     &:hover {
-      background-color: #fff;
-      color: #222;
-      border: 1px solid #222;
+      background-color: #10ce72;
+      border: 1px solid #10ce72;
     }
 
     &.cancel {
       margin-right: 10px;
-      background: #ff0000;
-      border: 1px solid #ff0000;
+      background: #eee;
+      border: 1px solid #eee;
+      color: #555;
+      font-size: 16px;
+      font-weight: normal;
       &:hover {
-        color: #ff0000;
-        background: #fff;
-        border: 1px solid #ff0000;
+        background: #ccc;
+        border: 1px solid #ccc;
       }
     }
   }

@@ -5,6 +5,8 @@ import { Detail } from "./index.js";
 import { RepleArea } from "../Reple/index.js";
 import axios from "axios";
 
+import { SpinnerDiv } from "../../style/DetailCSS";
+
 const PostArea = () => {
   const [postInfo, setPostInfo] = useState({});
   const [flag, setFlag] = useState(false);
@@ -35,9 +37,11 @@ const PostArea = () => {
           <RepleArea postId={postInfo._id} />
         </>
       ) : (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <SpinnerDiv>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </SpinnerDiv>
       )}
     </div>
   );

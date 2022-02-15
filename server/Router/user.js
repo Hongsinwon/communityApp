@@ -42,6 +42,7 @@ router.post("/namecheck", (req, res) => {
     });
 });
 
+//이미지 경로 저장
 router.post(
   "/profile/img",
   setUpload("react-community-sinwon/user"),

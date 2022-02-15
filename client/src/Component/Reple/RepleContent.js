@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import Avatar from "react-avatar";
 import moment from "moment";
@@ -60,29 +62,40 @@ const RepleContent = ({ reple }) => {
 
   const setTime = (a, b) => {
     if (a !== b) {
-      return moment(b).format(`YYYY년 MMMM Do , a hh:mm`) + `(수정됨)`;
+      return moment(b).format(`YYYY년 MMMM Do a hh:mm`) + ` (수정)`;
     } else {
-      return moment(a).format(`YYYY년 MMMM Do , a hh:mm`);
+      return moment(a).format(`YYYY년 MMMM Do a hh:mm`);
     }
   };
-
+  //<FontAwesomeIcon icon="fas fa-ellipsis-v" />
   return (
     <RepleContentDiv>
       <div className="author">
-        <p className="authorName">
+        <div className="userContent">
           <Avatar
-            size="40"
+            size="36"
             round={true}
             src={reple.author.photoURL}
             style={{ border: `1px solid #eee` }}
           />
-
-          {reple.author.displayName}
-          <span>{setTime(reple.createdAt, reple.updatedAt)}</span>
-        </p>
+          <div className="userIfnfo">
+            <p className="displayName">
+              {reple.author.displayName}
+              {user.uid === reple.author.uid && (
+                <span className="writer">작성자</span>
+              )}
+            </p>
+            <p className="postTime">
+              {setTime(reple.createdAt, reple.updatedAt)}
+            </p>
+          </div>
+        </div>
         {reple.author.uid === user.uid && (
           <div className="modalControl">
-            <span onClick={() => setModalFlag(true)}>...</span>
+            <div className="iconContent" onClick={() => setModalFlag(true)}>
+              <span>더보기</span>
+              <FontAwesomeIcon icon={faEllipsisV} className="icon" />
+            </div>
             {modalFlag && (
               <ul className="modalList" ref={ref}>
                 <li
@@ -118,7 +131,7 @@ const RepleContent = ({ reple }) => {
           </RepleForm>
         </div>
       ) : (
-        <p>{reple.reple}</p>
+        <p className="repleContent">{reple.reple}</p>
       )}
     </RepleContentDiv>
   );

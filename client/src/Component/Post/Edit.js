@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ImageUpload } from ".";
+import Avatar from "react-avatar";
 import axios from "axios";
 
 import { UploadDiv, UploadButtonDiv, UploadForm } from "../../style/UploadCSS";
@@ -8,7 +10,9 @@ const Edit = () => {
   const [postInfo, setPostInfo] = useState({}); //title, content, postNum 정보
 
   const [title, setTitle] = useState(""); // title input
-  const [content, setContent] = useState(""); // content inpur
+  const [content, setContent] = useState(""); // content input
+  const [image, setImage] = useState("");
+
   let navigate = useNavigate(); // 이동
   let params = useParams(); // 현재 정보가져오기
 
@@ -33,6 +37,7 @@ const Edit = () => {
   useEffect(() => {
     setTitle(postInfo.title);
     setContent(postInfo.content);
+    setImage(postInfo.image);
   }, [postInfo]);
 
   // button onClick시 server로 내용전송
@@ -45,6 +50,7 @@ const Edit = () => {
     let body = {
       title,
       content,
+      image,
       postNum: params.postNum,
     };
 
@@ -68,11 +74,13 @@ const Edit = () => {
     navigate(-1);
   };
 
+  console.log(image);
+
   return (
     <>
       <UploadDiv>
         <UploadForm>
-          <label htmlFor="title">제목</label>
+          <label htmlFor="title">글 수정</label>
           <input
             id="title"
             type="text"
@@ -80,13 +88,22 @@ const Edit = () => {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="제목을 입력해주세요"
           />
-          <label htmlFor="content">내용</label>
+          <ImageUpload setImage={setImage} />
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="내용을 입력해주세요"
           />
+          {image && (
+            <div className="imgUploadCut">
+              <Avatar
+                size="300"
+                src={image}
+                style={{ border: `1px solid #eee`, cursor: "pointer" }}
+              />
+            </div>
+          )}
           <UploadButtonDiv>
             <button onClick={navigateBack} className="cancel">
               취소

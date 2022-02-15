@@ -89,6 +89,7 @@ router.post("/edit", (req, res) => {
   let temp = {
     title: req.body.title,
     content: req.body.content,
+    image: req.body.image,
   };
   Post.updateOne({ postNum: Number(req.body.postNum) }, { $set: temp })
     .exec()
@@ -117,7 +118,6 @@ router.post(
   "/image/upload",
   setUpload("react-community-sinwon/post"),
   (req, res, next) => {
-    console.log(res.req);
     res.status(200).json({ success: true, filePath: res.req.file.location });
   }
 );

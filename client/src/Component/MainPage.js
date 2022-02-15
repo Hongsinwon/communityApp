@@ -58,26 +58,30 @@ const MainPage = () => {
     getPostList();
   }, [sort]);
 
-  const searchHandler = () => {
+  const searchHandler = (e) => {
+    e.preventDefault();
     getPostList();
   };
 
   return (
     <ListDiv>
       <div className="listOption">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="검색내용을 작성해주세요."
-          onKeyDown={(e) => {
-            if (e.keyCode === 13) {
-              searchHandler();
-            }
-          }}
-        />
+        <form>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="제목, 내용 검색"
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                searchHandler();
+              }
+            }}
+          />
+          <button onClick={searchHandler}>검색</button>
+        </form>
 
-        <DropdownButton align="end" variant="secondary" title={sort}>
+        <DropdownButton align="end" variant="outline-secondary" title={sort}>
           <Dropdown.Item onClick={() => setSort("최신순")}>
             최신순
           </Dropdown.Item>

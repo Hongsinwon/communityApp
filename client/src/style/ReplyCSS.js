@@ -8,7 +8,7 @@ export const RepleDiv = styled.div`
 export const RepleForm = styled.div`
   width: 100%;
   form {
-    margin-top: 40px;
+    margin-top: 48px;
     width: 100%;
     display: grid;
     grid-template-columns: 7fr 1fr;
@@ -20,24 +20,27 @@ export const RepleForm = styled.div`
     input {
       padding: 10px;
       height: 100%;
-      border-radius: 10px 0px 0px 10px;
-      border: 0.5px solid #c6c6c6;
+      border-radius: 5px 0px 0px 5px;
+      border: 1px solid #eee;
 
       &:active,
       &:focus {
         outline: none;
+        border: 1px solid #10ce72;
       }
     }
     button {
       height: 100%;
-      border-radius: 0px 10px 10px 0px;
-      border: 0.5px solid #c6c6c6;
+      border-radius: 0px 5px 5px 0px;
+      border: 1px solid #10ce72;
       font-weight: bold;
-      background-color: #c6c6c6;
+      color: #fff;
+      background: #10ce72;
+      transition: all 0.5s;
       &:hover,
       &:active {
-        border: 0.5px solid darkgrey;
-        background-color: darkgrey;
+        border: 1px solid #10ad62;
+        background: #10ad62;
       }
     }
   }
@@ -56,11 +59,14 @@ export const RepleForm = styled.div`
 `;
 
 export const RepleContentDiv = styled.div`
-  margin: 20px 0;
-  padding: 15px;
+  margin-top: 20px;
+  padding: 24px 15px;
   border-radius: 5px;
-  border: 1px solid #eee;
-  box-shadow: 0 0 5px #aaa;
+  border-top: 1px solid #eee;
+
+  :last-child {
+    border-bottom: 1px solid #eee;
+  }
 
   .author {
     display: flex;
@@ -70,44 +76,80 @@ export const RepleContentDiv = styled.div`
     margin-bottom: 16px;
   }
 
-  .authorName {
+  .userContent {
     display: flex;
-    color: #999;
-    font-size: 12px;
+
+    .userIfnfo {
+      margin-left: 16px;
+
+      .displayName {
+        font-size: 16px;
+
+        .writer {
+          position: relative;
+          top: -3px;
+          margin-left: 8px;
+          padding: 2px 8px;
+          font-size: 12px;
+          font-weight: bold;
+          background: #10ce72;
+          border-radius: 5px;
+          color: #fff;
+        }
+      }
+      .postTime {
+        margin-top: 2px;
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
+
+  .repleContent {
+    width: 100%;
+    word-break: keep-all;
+    word-wrap: break-word;
   }
 
   .modalControl {
     display: flex;
     position: relative;
-    top: 0;
+    top: -10px;
     right: 0;
 
-    span {
+    .iconContent {
       cursor: pointer;
+      span {
+        display: none;
+      }
+      .icon {
+        padding: 5px 0;
+        padding-left: 20px;
+        font-size: 20px;
+        color: #666;
+      }
     }
   }
 
   .modalList {
     position: absolute;
-    top: 15px;
-    right: 10px;
-    width: 80px;
-    height: 60px;
+    top: 0px;
+    right: 20px;
+    width: 120px;
+    height: 100px;
     overflow: hidden;
-    padding: 10px;
-    cursor: auto;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-content: center;
-    justify-content: space-between;
-    align-items: center;
 
     background-color: #fff;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.03),
-      0px 7.5px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1), 0px 0px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 
     li {
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
       cursor: pointer;
       &.delete {
         color: #ff0000;
