@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { IoginUser, ClearUser } from "./Reducer/userSlice.js";
 import firebase from "./Component/firebase";
 
-import { Heading, MainPage, Header } from "./Component/index.js";
+import { MainPage, Header } from "./Component/index.js";
 import { Login, Register, MyPage } from "./Component/User/index.js";
 import { Upload, Edit, PostArea } from "./Component/Post/index.js";
 
