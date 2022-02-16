@@ -3,7 +3,6 @@ const path = require("path");
 const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 5000;
-
 const config = require("./server/config/key.js");
 
 // build파일 불러오기
