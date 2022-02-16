@@ -20,7 +20,7 @@ function App() {
       }
     });
   }, []);
-  //<Heading />
+
   return (
     <>
       <Header />
