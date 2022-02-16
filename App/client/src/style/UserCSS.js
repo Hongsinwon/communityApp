@@ -112,7 +112,7 @@ export const LoginDiv = styled.div`
 `;
 
 export const MypageDiv = styled.div`
-  width: 70%;
+  width: 65%;
   margin: 0 auto;
   margin-top: 90px;
   @media (max-width: 1200px) {
