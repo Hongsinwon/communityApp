@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const RepleDiv = styled.div`
   width: 65%;
   margin: 0 auto;
+  margin-bottom: 20px;
   @media (max-width: 1200px) {
     width: 80%;
   }
