@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
 export const ListDiv = styled.div`
-  width: 80%;
+  width: 65%;
   margin: 0 auto;
   margin-top: 82px;
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
 
   .listOption {
     margin-top: 32px;
@@ -114,7 +117,7 @@ export const ListItem = styled.div`
           padding: 2px 8px;
           font-size: 12px;
           font-weight: bold;
-          background: #10ce72;
+          background: #f5bd1a;
           border-radius: 5px;
           color: #fff;
         }
@@ -134,7 +137,10 @@ export const ListItem = styled.div`
     padding: 0 20px 24px;
 
     img {
-      width: 80%;
+      width: 50%;
+      @media (max-width: 1000px) {
+        width: 80%;
+      }
     }
   }
   // 글 설정

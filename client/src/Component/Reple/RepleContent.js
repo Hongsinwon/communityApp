@@ -17,8 +17,6 @@ const RepleContent = ({ reple }) => {
   const ref = useRef();
   const user = useSelector((state) => state.user);
 
-  useOnClickOutside(ref, () => setModalFlag(false));
-
   const submitHandler = (e) => {
     e.preventDefault();
     let body = {
@@ -67,13 +65,26 @@ const RepleContent = ({ reple }) => {
       return moment(a).format(`YYYY년 MMMM Do a hh:mm`);
     }
   };
+
+  useEffect(() => {
+    const onClick = (e) => {
+      if (!ref.current?.contains(e.target)) {
+        setModalFlag(false);
+      }
+    };
+
+    document.body.addEventListener("click", onClick);
+    return () => {
+      document.body.removeEventListener("click", onClick);
+    };
+  }, []);
   //<FontAwesomeIcon icon="fas fa-ellipsis-v" />
   return (
     <RepleContentDiv>
       <div className="author">
         <div className="userContent">
           <Avatar
-            size="36"
+            size="40"
             round={true}
             src={reple.author.photoURL}
             style={{ border: `1px solid #eee` }}
@@ -92,12 +103,16 @@ const RepleContent = ({ reple }) => {
         </div>
         {reple.author.uid === user.uid && (
           <div className="modalControl">
-            <div className="iconContent" onClick={() => setModalFlag(true)}>
+            <div
+              className="iconContent"
+              onClick={() => setModalFlag(!modalFlag)}
+              ref={ref}
+            >
               <span>더보기</span>
               <FontAwesomeIcon icon={faEllipsisV} className="icon" />
             </div>
             {modalFlag && (
-              <ul className="modalList" ref={ref}>
+              <ul className="modalList">
                 <li
                   onClick={() => {
                     setEditFlag(true);
@@ -136,22 +151,5 @@ const RepleContent = ({ reple }) => {
     </RepleContentDiv>
   );
 };
-
-function useOnClickOutside(ref, handler) {
-  useEffect(() => {
-    const listener = (event) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-      handler(event);
-    };
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-    return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
-    };
-  }, [ref, handler]);
-}
 
 export default RepleContent;

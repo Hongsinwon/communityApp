@@ -11,8 +11,18 @@ const Header = () => {
   const [modal, setModal] = useState(false);
   const ref = useRef();
 
-  console.log(modal);
-  useOnClickOutside(ref, () => setModal(false));
+  useEffect(() => {
+    const onClick = (e) => {
+      if (!ref.current?.contains(e.target)) {
+        setModal(false);
+      }
+    };
+
+    document.body.addEventListener("click", onClick);
+    return () => {
+      document.body.removeEventListener("click", onClick);
+    };
+  }, []);
 
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -22,18 +32,11 @@ const Header = () => {
     navigate("/");
   };
 
-  const onClickModal = () => {
-    if (!modal) {
-      return setModal(true);
-    }
-    return setModal(false);
-  };
-
   return (
     <HeaderWrap>
       <div className="topNav">
         <Link to="/">
-          <h1>로고</h1>
+          <img src={require("../image/logo.png")} />
         </Link>
         <div className="topNavMenu">
           <Link to="/upload">
@@ -48,17 +51,19 @@ const Header = () => {
             </Link>
           ) : (
             <>
-              <p onClick={onClickModal}>
+              <p onClick={() => setModal(!modal)} ref={ref}>
                 <span className="delete mypage">마이페이지</span>
                 <FontAwesomeIcon icon={faUser} className="icon" />
               </p>
               {modal && (
-                <ul className="subMenu" ref={ref}>
+                <ul className="subMenu">
                   <Link to="/mypage">
                     <li>마이페이지</li>
                   </Link>
                   <Link to="">
-                    <li onClick={LogoutHandler}>로그아웃</li>
+                    <li onClick={LogoutHandler} className="logout">
+                      로그아웃
+                    </li>
                   </Link>
                 </ul>
               )}
@@ -69,22 +74,5 @@ const Header = () => {
     </HeaderWrap>
   );
 };
-
-function useOnClickOutside(ref, handler) {
-  useEffect(() => {
-    const listener = (event) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-      handler(event);
-    };
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-    return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
-    };
-  }, [ref, handler]);
-}
 
 export default Header;

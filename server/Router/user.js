@@ -47,7 +47,6 @@ router.post(
   "/profile/img",
   setUpload("react-community-sinwon/user"),
   (req, res, next) => {
-    console.log(res.req);
     res.status(200).json({ success: true, filePath: res.req.file.location });
   }
 );
@@ -55,7 +54,9 @@ router.post(
 router.post("/profile/update", (req, res) => {
   let temp = {
     photoURL: req.body.photoURL,
+    displayName: req.body.displayName,
   };
+
   User.updateOne({ uid: req.body.uid }, { $set: temp })
     .exec()
     .then(() => {

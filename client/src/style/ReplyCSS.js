@@ -1,14 +1,18 @@
 import styled from "styled-components";
 
 export const RepleDiv = styled.div`
-  width: 80%;
+  width: 65%;
   margin: 0 auto;
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
 `;
 
 export const RepleForm = styled.div`
   width: 100%;
   form {
     margin-top: 48px;
+    margin-bottom: 20px;
     width: 100%;
     display: grid;
     grid-template-columns: 7fr 1fr;
@@ -49,17 +53,17 @@ export const RepleForm = styled.div`
     display: flex;
     justify-content: flex-end;
     button {
-      margin-top: 10px;
       font-size: 14px;
-      border-radius: 10px;
-      padding: 10px 20px;
-      border: 1px solid #c6c6c6;
+      border-radius: 5px;
+      padding: 10px 25px;
+      border: 1px solid #eee;
+      font-weight: bold;
+      color: #ff0000;
     }
   }
 `;
 
 export const RepleContentDiv = styled.div`
-  margin-top: 20px;
   padding: 24px 15px;
   border-radius: 5px;
   border-top: 1px solid #eee;
@@ -92,7 +96,7 @@ export const RepleContentDiv = styled.div`
           padding: 2px 8px;
           font-size: 12px;
           font-weight: bold;
-          background: #10ce72;
+          background: #f5bd1a;
           border-radius: 5px;
           color: #fff;
         }

@@ -7,10 +7,14 @@ export const UploadDiv = styled.div`
 `;
 
 export const UploadForm = styled.form`
-  width: 80%;
+  width: 65%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
 
   label {
     margin-top: 10px;

@@ -110,3 +110,82 @@ export const LoginDiv = styled.div`
     transition: all 0.5s;
   }
 `;
+
+export const MypageDiv = styled.div`
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 90px;
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .userImage {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    label {
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #666;
+
+      // 사용가능
+      .possibility {
+        margin-left: 8px;
+        font-size: 12px;
+        color: #00ac00;
+        font-weight: normal;
+      }
+      //사용불가능
+      .impossible {
+        margin-left: 8px;
+        font-size: 12px;
+        color: #ff0000;
+        font-weight: normal;
+      }
+    }
+    input {
+      margin-bottom: 16px;
+      padding: 0 16px;
+      height: 50px;
+      line-height: 50px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+
+      &:active,
+      &:focus {
+        outline: none;
+        border: 1px solid #10ce72;
+      }
+    }
+
+    .nickName {
+      height: 50px;
+      line-height: 50px;
+      border-radius: 5px;
+      background: rgb(16 206 114 / 10%);
+      border: 1px solid rgb(16 206 114 / 10%);
+      color: #10ce72;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .saveBtn {
+      margin-top: 48px;
+      height: 50px;
+      line-height: 50px;
+      border-radius: 5px;
+      background: #10ce72;
+      border: 1px solid #10ce72;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+`;

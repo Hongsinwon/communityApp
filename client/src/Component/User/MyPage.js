@@ -5,17 +5,21 @@ import firebase from "../firebase";
 import Avatar from "react-avatar";
 import axios from "axios";
 
+import { MypageDiv } from "../../style/UserCSS";
+
 const MyPage = () => {
   const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
-
+  const [name, setName] = useState("");
   const [currentImg, setCrrentImg] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user.isLoding && !user.accessToken) {
       navigate("/login");
     } else {
       setCrrentImg(user.photoURL);
+      setName(user.displayName);
     }
   }, [user]);
 
@@ -34,12 +38,14 @@ const MyPage = () => {
     try {
       await firebase.auth().currentUser.updateProfile({
         photoURL: currentImg,
+        displayName: name,
       });
     } catch (err) {
       return alert("프로필 저장에 실패하였습니다.");
     }
     let body = {
       photoURL: currentImg,
+      displayName: name,
       uid: user.uid,
     };
     axios.post("/api/user/profile/update", body).then((response) => {
@@ -53,25 +59,37 @@ const MyPage = () => {
   };
 
   return (
-    <div>
+    <MypageDiv>
       <form>
-        <label>
+        <label className="userImage">
           <input
             type={`file`}
             accept="image/*"
             style={{ display: "none" }}
             onChange={ImageUpload}
           />
+
           <Avatar
-            size="100"
+            size="200"
             round={true}
             src={currentImg}
             style={{ border: `1px solid #eee`, cursor: "pointer" }}
           />
         </label>
-        <button onClick={saveProFile}>저장</button>
+
+        <label>닉네임 </label>
+        <input
+          type="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="닉네임을 입력해주세요"
+        />
+
+        <button className="saveBtn" onClick={saveProFile}>
+          저장
+        </button>
       </form>
-    </div>
+    </MypageDiv>
   );
 };
 
