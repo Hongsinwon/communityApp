@@ -6,7 +6,7 @@ const port = process.env.PORT || 5000;
 const config = require("./server/config/key.js");
 
 // build파일 불러오기
-app.use(express.static(path.join(__dirname, "../App/client/build"))); //__dirname => 현재 경로
+app.use(express.static(path.join(__dirname, "./client/build", "index.js"))); //__dirname => 현재 경로
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,9 +27,9 @@ app.listen(port, () => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../App/client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../App/client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
