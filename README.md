@@ -63,5 +63,5 @@
 ![댓글 수정](img/post-edit.png)
 
 #### 7. 마이페이지 (닉네임 수정 + 프로필 사진 수정)
-![마이페이지](img/post-edit.png)
+![마이페이지](img/mypage.png)
 
